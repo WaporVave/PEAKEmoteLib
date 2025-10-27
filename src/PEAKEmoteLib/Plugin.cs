@@ -38,6 +38,11 @@ public partial class Plugin : BaseUnityPlugin
 
 public static class BaseUnityPluginExtensions
 {
+    public static Emote RegisterEmote(this BaseUnityPlugin plugin, Emote emote)
+    {
+        return EmoteRegistry.RegisterEmote(emote);
+    }
+
     public static Emote RegisterEmote(this BaseUnityPlugin plugin, string name, AnimationClip clip)
     {
         return EmoteRegistry.RegisterEmote(name, clip);
