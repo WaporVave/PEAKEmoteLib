@@ -3,9 +3,29 @@ using UnityEngine;
 
 namespace PEAKEmoteLib;
 
+/// <summary>
+/// A Harmony patch for GUIManager.UpdateEmoteWheel that enables scrolling
+/// through emote wheel tabs using the mouse scroll wheel
+/// </summary>
 [HarmonyPatch(typeof(GUIManager), "UpdateEmoteWheel")]
 public static class GUIManagerUpdateEmoteWheelPatch
 {
+    /// <summary>
+    /// A postfix executed after GUIManager.UpdateEmoteWheel that
+    /// checks for mouse scroll wheel input and tabs the emote wheel
+    /// accordingly; mouse wheel up scrolls back, and mouse wheel down scrolls
+    /// forward.
+    /// </summary>
+    /// 
+    /// <remarks>
+    /// This logic runs once every GUIManager logic update frame while the
+    /// emote wheel is open.
+    /// </remarks>
+    /// 
+    /// <param name="__instance">
+    /// The instance of GUIManager whose UpdateEmoteWheel method was called.
+    /// Provided automatically by Harmony.
+    /// </param>
     [HarmonyPostfix]
     public static void Postfix(GUIManager __instance)
     {
@@ -14,31 +34,13 @@ public static class GUIManagerUpdateEmoteWheelPatch
             if (Input.mouseScrollDelta[1] < 0)
             {
                 EmoteWheel emoteWheel = __instance.emoteWheel.GetComponent<EmoteWheel>();
-                emoteWheel.NextPage();
-                UpdateWheelSlices(emoteWheel);
+                emoteWheel.TabNext();
             }
             else if (Input.mouseScrollDelta[1] > 0)
             {
                 EmoteWheel emoteWheel = __instance.emoteWheel.GetComponent<EmoteWheel>();
-                emoteWheel.PreviousPage();
-                UpdateWheelSlices(emoteWheel);
+                emoteWheel.TabPrev();
             }
-        }
-    }
-
-    private static void UpdateWheelSlices(EmoteWheel emoteWheel)
-    {
-        EmoteWheelPage? currentPage = emoteWheel.GetCurrentPage();
-        if (currentPage == null)
-        {
-            Plugin.Log.LogWarning("Tried to update wheel slices for new page, but current page is null");
-            return;
-        }
-
-        for (int i = 0; i < EmoteWheelPage.SlicesPerPage; i++)
-        {
-            emoteWheel.data[i] = currentPage.data[i];
-            emoteWheel.slices[i].Init(emoteWheel.data[i], emoteWheel);
         }
     }
 }

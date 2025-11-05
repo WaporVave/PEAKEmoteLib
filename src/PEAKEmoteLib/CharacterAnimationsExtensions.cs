@@ -3,6 +3,10 @@ using UnityEngine;
 
 namespace PEAKEmoteLib;
 
+/// <summary>
+/// A static class containing C# extension members to attach and retrieve custom 
+/// state to and from instances of the game's CharacterAnimations class.
+/// </summary>
 internal static class CharacterAnimationsExtensions
 {
     private static readonly ConditionalWeakTable<CharacterAnimations, Holder> data = new ConditionalWeakTable<CharacterAnimations, Holder>();

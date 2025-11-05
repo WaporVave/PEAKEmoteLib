@@ -2,7 +2,7 @@
 
 PEAKEmoteLib is a library offering an API for adding custom emotes to the game [PEAK](https://store.steampowered.com/app/3527290/PEAK/).
 
-Extra emotes are added to additional pages on the wheel, which can be accessed by scrolling with the mouse wheel. 
+Extra emotes are added to additional pages on the wheel, which can be accessed with the vanilla "next" and "previous" buttons, or by scrolling with the mouse wheel. 
 
 ## Usage
 

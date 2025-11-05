@@ -3,6 +3,11 @@ using UnityEngine;
 
 namespace PEAKEmoteLib;
 
+/// <summary>
+/// A Harmony patch for CharacterAnimations.UpdateHeadBob that attaches a new
+/// Unity AnimatorOverrideController to the CharacterAnimations object via 
+/// <see cref="CharacterAnimationsExtensions"/> methods. 
+/// </summary>
 [HarmonyPatch(typeof(CharacterAnimations), "UpdateHeadBob")]
 public static class CharacterAnimationsUpdateHeadBobPatch
 {
